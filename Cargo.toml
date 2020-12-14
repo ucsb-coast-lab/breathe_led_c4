@@ -1,0 +1,10 @@
+[package]
+name = "breathe_led_c4"
+version = "0.1.0"
+authors = ["Christopher Moran <christophermoran@ucsb.edu>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sysfs-pwm = {git = "https://github.com/rust-embedded/rust-sysfs-pwm.git", branch = "master"}
