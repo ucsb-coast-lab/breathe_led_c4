@@ -2,20 +2,21 @@ extern crate sysfs_pwm;
 use sysfs_pwm::{Pwm, Result};
 
 // This has been tested to work on Odroid-C4 using the stock Ubuntu Odroid image
-// May need to add `overlays="spi0 i2c0 i2c1 uart0 pwm_ab pwm_cd pwm_de` to
+// May need to add `overlays="spi0 i2c0 i2c1 uart0 pwm_ab pwm_cd pwm_ef` to
 // the /media/boot/config.ini file and restart before the PWM pins are available
-// This has NOT been tested for pwmchip8
 // Pin #35 -> pwmchip0, channel 1
 // Pin #33 -> pwmchip0, channel 0
 // Pin #11 -> pwmchip4, channel 1
 // Pin #7  -> pwmchip4, channel 0
-const C4_PWM_CHIP: u32 = 4;
-const C4_PWM_NUMBER: u32 = 1;
+// Pin #15 -> pwmchip8, channel 1
+// Pin #12 -> pwmchip8, channel 0
+const C4_PWM_CHIP: u32 = 8;
+const C4_PWM_CHANNEL: u32 = 1;
 
 /// Make an LED "breathe" by increasing and
 /// decreasing the brightness
 fn main() {
-    let pwm = Pwm::new(C4_PWM_CHIP, C4_PWM_NUMBER)
+    let pwm = Pwm::new(C4_PWM_CHIP, C4_PWM_CHANNEL)
         .expect("An error occurred while trying to set up the PWM struct"); // number depends on chip, etc.
     pwm.export().expect("An error occurred while trying to export the PWM struct");
     pwm.set_period_ns(50_000).expect("Error while setting PWM period");
